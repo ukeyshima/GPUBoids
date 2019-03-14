@@ -57,8 +57,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\cs\GPUBoids.cs" />
+     <Compile Include="Assets\script\BoidsRender.cs" />
+     <Compile Include="Assets\script\GPUBoids.cs" />
+     <Compile Include="Assets\script\Sea.cs" />
      <None Include="Assets\shader\Boids.compute" />
+     <None Include="Assets\shader\BoidsRender.shader" />
+     <None Include="Assets\shader\Sea.shader" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/shimadayuki/Documents/ComputeShader-boids/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
