@@ -41,7 +41,6 @@
 
             sampler2D _MainTex;
 
-
             float random1(float3 p){
                 return frac(sin(dot(p.xyz,float3(12.9898,46.2346,78.233)))*43758.5453123)*2.0-1.0;
             }
@@ -103,15 +102,12 @@
             }
 
             fixed4 frag (v2f i) : SV_Target
-            {                                
-                float2 boronoiUV=i.uv.xy;
-                boronoiUV.xy+=perlinNoise(float3(i.uv.xy*13.0,_Time.y))/20.0;
-                float boronoiColor=lerp(0.0,boronoi(float3(boronoiUV.x*4.0,boronoiUV.y*10.0,_Time.y)),smoothstep(0.4,1.0,i.uv.y));                                
+            {                                                
                 fixed4 color = tex2D(_MainTex, i.uv);
                 fixed4 depthCameraColor=UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, i.uv))*0.99;
                 depthCameraColor=pow(depthCameraColor.x,15.0);             
                 float depthColor=clamp(smoothstep(1.0,0.0,i.uv.y)-0.6,0.0,1.0);
-                return color+fixed4(float3(boronoiColor,boronoiColor,boronoiColor),0.0)-fixed4(depthColor,depthColor,depthColor,0.0)-depthCameraColor+float4(0.1,0.1,0.3,0.0);         
+                return color-fixed4(depthColor,depthColor,depthColor,0.0)-depthCameraColor+float4(0.1,0.1,0.3,0.0);         
             }
             ENDCG
         }

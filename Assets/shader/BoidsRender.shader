@@ -49,6 +49,9 @@ float3 scl = _ObjectScale;
 
 float4x4 object2world = (float4x4)0;
 
+v.vertex.x+=sin(v.vertex.y*6.0+_Time*100.0)
+*smoothstep(-0.2,0.66,v.vertex.y)*0.1;
+
 object2world._11_22_33_44 = float4(scl.xyz, 1.0);
 
 float rotY = atan2(boidData.velocity.x, boidData.velocity.z);
