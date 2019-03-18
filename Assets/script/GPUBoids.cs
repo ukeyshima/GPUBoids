@@ -10,6 +10,7 @@ public class GPUBoids : MonoBehaviour
     {
         public Vector3 Velocity;
         public Vector3 Position;
+        public float Scale;
     }
     const int SIMULATION_BLOCK_SIZE = 10;
 
@@ -85,7 +86,7 @@ public class GPUBoids : MonoBehaviour
     void InitBuffer()
     {
         _boidDataBuffer = new ComputeBuffer(MaxObjectNum, Marshal.SizeOf(typeof(BoidData)));
-        _boidForceBuffer = new ComputeBuffer(MaxObjectNum, Marshal.SizeOf(typeof(Vector3)));
+        _boidForceBuffer = new ComputeBuffer(MaxObjectNum, Marshal.SizeOf(typeof(Vector3)));        
 
         var forceArr = new Vector3[MaxObjectNum];
         var boidDataArr = new BoidData[MaxObjectNum];
@@ -94,6 +95,7 @@ public class GPUBoids : MonoBehaviour
             forceArr[i] = Vector3.zero;
             boidDataArr[i].Position = Random.insideUnitSphere * 30.0f;
             boidDataArr[i].Velocity = Random.insideUnitSphere * 50.0f;
+            boidDataArr[i].Scale=Random.Range(0.8f,2.0f);
         }
         _boidForceBuffer.SetData(forceArr);
         _boidDataBuffer.SetData(boidDataArr);

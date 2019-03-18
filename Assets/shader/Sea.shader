@@ -103,11 +103,9 @@
 
             fixed4 frag (v2f i) : SV_Target
             {                                                
-                fixed4 color = tex2D(_MainTex, i.uv);
-                fixed4 depthCameraColor=UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, i.uv))*0.99;
-                depthCameraColor=pow(depthCameraColor.x,15.0);             
-                float depthColor=clamp(smoothstep(1.0,0.0,i.uv.y)-0.6,0.0,1.0);
-                return color-fixed4(depthColor,depthColor,depthColor,0.0)-depthCameraColor+float4(0.1,0.1,0.3,0.0);         
+                fixed4 color = tex2D(_MainTex, i.uv);                      
+                float depthColor=clamp(smoothstep(1.0,0.0,i.uv.y)-0.7,0.0,1.0);
+                return color-fixed4(depthColor,depthColor,depthColor,0.0)+float4(0.1,0.1,0.3,0.0);         
             }
             ENDCG
         }

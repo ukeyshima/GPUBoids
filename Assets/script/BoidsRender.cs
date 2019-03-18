@@ -4,20 +4,16 @@ using UnityEngine;
 
 [RequireComponent(typeof(GPUBoids))]
 public class BoidsRender : MonoBehaviour
-{
-    #region Paremeters
-    public Vector3 ObjectScale = new Vector3(0.01f, 0.02f, 0.05f);
-    #endregion
+{    
     #region Script References
-
     public GPUBoids GPUBoidsScript;
     #endregion
+
     #region Built-in Resources
-
     public Mesh InstanceMesh;
-
     public Material InstanceRenderMaterial;
     #endregion
+
     #region Private Variables
     uint[] args = new uint[5] { 0, 0, 0, 0, 0 };
     ComputeBuffer argsBuffer;
@@ -49,8 +45,7 @@ public class BoidsRender : MonoBehaviour
         argsBuffer.SetData(args);
 
         InstanceRenderMaterial.SetBuffer("_BoidDataBuffer", GPUBoidsScript.GetBoidDataBuffer());
-
-        InstanceRenderMaterial.SetVector("_ObjectScale", ObjectScale);
+        
 
         var bounds = new Bounds(
         GPUBoidsScript.GetSimulationAreaCenter(),

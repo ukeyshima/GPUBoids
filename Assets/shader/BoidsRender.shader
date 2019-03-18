@@ -21,14 +21,12 @@ struct BoidData
 {
 float3 velocity; 
 float3 position; 
+float scale;
 };
 #ifdef UNITY_PROCEDURAL_INSTANCING_ENABLED
 StructuredBuffer<BoidData> _BoidDataBuffer;
 #endif
 sampler2D _MainTex; 
-half _Glossiness;
-half _Metallic; 
-fixed4 _Color; 
 float3 _ObjectScale;
 
 float4x4 eulerAnglesToRotationMatrix(float3 angles) {
@@ -45,14 +43,14 @@ void vert(inout appdata_full v)
 
 BoidData boidData = _BoidDataBuffer[unity_InstanceID];
 float3 pos = boidData.position.xyz; 
-float3 scl = _ObjectScale; 
+float scl = boidData.scale; 
 
 float4x4 object2world = (float4x4)0;
 
 v.vertex.x+=sin(v.vertex.y*6.0+_Time*100.0)
 *smoothstep(-0.2,0.66,v.vertex.y)*0.1;
 
-object2world._11_22_33_44 = float4(scl.xyz, 1.0);
+object2world._11_22_33_44 = float4((float3)20.0*scl, 1.0);
 
 float rotY = atan2(boidData.velocity.x, boidData.velocity.z);
 

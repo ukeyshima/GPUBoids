@@ -3,9 +3,7 @@
     Properties
     {
         _Color ("Color", Color) = (1,1,1,1)
-        _MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _Glossiness ("Smoothness", Range(0,1)) = 0.5
-        _Metallic ("Metallic", Range(0,1)) = 0.0
+        _MainTex ("Albedo (RGB)", 2D) = "white" {}                
     }
     SubShader
     {
@@ -13,8 +11,7 @@
         LOD 200
 
         CGPROGRAM        
-        #pragma surface surf Standard alpha:fade 
-
+        #pragma surface surf Standard alpha:fade        
         #pragma target 3.0
 
         sampler2D _MainTex;
@@ -23,15 +20,10 @@
         {
             float2 uv_MainTex;
         };
-
-        half _Glossiness;
-        half _Metallic;
-        fixed4 _Color;
         
-        UNITY_INSTANCING_BUFFER_START(Props)
-        UNITY_INSTANCING_BUFFER_END(Props)
+        fixed4 _Color;        
 
-  float random1(float3 p){
+        float random1(float3 p){
                 return frac(sin(dot(p.xyz,float3(12.9898,46.2346,78.233)))*43758.5453123)*2.0-1.0;
             }
             float random2(float3 p){
@@ -94,11 +86,10 @@
         void surf (Input IN, inout SurfaceOutputStandard o)
         {            
             float2 boronoiUV=IN.uv_MainTex.xy;
-            boronoiUV.xy+=perlinNoise(float3(IN.uv_MainTex.xy*20.0,_Time.y/2.0))/25.0;
-            float boronoiColor=boronoi(float3(boronoiUV.x*50.0,boronoiUV.y*50.0,_Time.y/2.0))*4.0*0.8;
-            o.Albedo = float3(boronoiColor,boronoiColor,boronoiColor)+_Color;
-            o.Alpha = lerp(0.0,1.0,smoothstep(0.5,1.0,IN.uv_MainTex.y));
-            // o.Alpha = 1.0;
+            boronoiUV.xy+=perlinNoise(float3(IN.uv_MainTex.xy*30.0,_Time.y/2.0))/15.0;
+            float boronoiColor=boronoi(float3(boronoiUV.x*20.0,boronoiUV.y*20.0,_Time.y/2.0))*4.0;
+            o.Albedo = float3(boronoiColor,boronoiColor,boronoiColor)+_Color;            
+            o.Alpha = lerp(0.0,1.0,smoothstep(0.5,1.0,IN.uv_MainTex.y));                               
         }
         ENDCG
     }

@@ -1,9 +1,11 @@
 ﻿#pragma kernel ForceCS
 #pragma kernel IntegrateCS
+
 struct BoidData
 {
 float3 velocity;
 float3 position;
+float scale;
 };
 
 #define SIMULATION_BLOCK_SIZE 10
